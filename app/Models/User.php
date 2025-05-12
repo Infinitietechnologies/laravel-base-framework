@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -29,7 +28,26 @@ class User extends Authenticatable
      * status enum('active','inactive') [default: 'inactive']
      */
     protected $fillable = [
-        'name', 'mobile', 'email', 'password', 'referral_code', 'friends_code', 'reward_points', 'status','profile_image'
+        'name',
+        'mobile',
+        'email',
+        'password',
+        'referral_code',
+        'friends_code',
+        'reward_points',
+        'status',
+        'profile_image'
+    ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+        'reward_points' => 'decimal:2',
     ];
 
     /**
@@ -53,10 +71,5 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
-    }
-
-    public function merchant()
-    {
-        return $this->hasOne(Merchant::class);
     }
 }
